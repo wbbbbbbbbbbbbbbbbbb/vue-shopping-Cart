@@ -1,0 +1,93 @@
+<!--新发现的问题
+1.如果父元素已经规定了度，不会高度塌陷，但可能会溢出（如果子元素总高度超过父元素的话）
+2.如果父元素没有规定高度：
+	2.1 如果所有子元素都浮动，父元素没有高度，这时候给父元素设置边框的话，就会发现边框保不住子元素
+	2.2 如果存在没有浮动的子元素，父元素高度取决于没有浮动的子元素，所以如果浮动子元素更高的话，还是会塌陷-->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="css/Shopping Cart.css"/>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			text-decoration: none;
+			font-size: 14px;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<div class="Segmenting-line">
+			<span >购物车-{{Administrators}}</span>
+		</div>
+		<div class="Commodity">
+			<ul class="CommodityTitle">
+				<li>商品信息</li>
+				<li>商品金额</li>
+				<li>商品数量</li>
+				<li>总金额</li>
+				<li>编辑</li>
+			</ul>
+		</div> 	
+		<div class="CommodityContent">
+			<ul class="CommodityInformation">
+				<li v-for="(Commodity,index) in Commoditys">
+					<div class="information">
+						<div class="input1">
+							<input type="radio" />					
+						</div>
+						<div>
+							<img :src="Commodity.imgs" alt="黄鹤楼" />
+						</div>
+						<div>
+							<p>{{Commodity.buyName}}</p>
+						</div>
+						<div>
+							<span>赠送：</span>
+							<span>{{Commodity.give}}</span>
+						</div>
+					</div>
+					<div class="money">￥{{Commodity.Price}}</div>
+					<div class="quantity">
+						<div class="quantityBox">
+							<a href="#" @click="MinusOne(index)"> < </a>
+							<!--readonly unselectable="on"  使文本框不能编辑，但能传数据到后台-->
+							<input type="text" readonly unselectable="on" v-model="Commodity.countOne" />
+							<a href="#" @click="addOne(index)"> > </a>
+						</div>
+						<p>{{Commodity.Stock}}</p>
+					</div>
+					<div class="Amount">￥{{Commodity.TotalPrice}}</div>
+					<div class="edit">
+						<a href="#">X</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="footer">
+			<div class="footerLeft">
+				<a href="#"><input type="radio" /></a>
+				<a href="#"><p>全选</p></a>
+				<a href="#"><p>取消选择</p></a>
+			</div>
+			<div class="footerRight2">
+				<a href="#">
+					<span>结账</span>
+				</a>
+			</div>
+			<div class="footerRight1">
+				<p>总价：</p>
+				<p></p>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/Shopping Cart.js" type="text/javascript" charset="utf-8"></script>
+</html>
